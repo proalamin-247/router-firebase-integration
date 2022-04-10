@@ -1,8 +1,15 @@
 import React from 'react';
 import useFirebase from '../../hooks/useFirbase';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import app from '../../firebase.init';
+
+const auth = getAuth(app);
 
 const Login = () => {
-    const { signInWithGoogle} =useFirebase();
+    // const { signInWithGoogle} =useFirebase();
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
     return (
         <div>
             <h3>Please Register!!</h3>
@@ -16,7 +23,7 @@ const Login = () => {
             <h4>Or</h4>
             {/* <br /> */}
             <div>
-                <button onClick={signInWithGoogle}>Google</button>
+                <button onClick={() => signInWithGoogle()}>Google</button>
             </div>
         </div>
     );
